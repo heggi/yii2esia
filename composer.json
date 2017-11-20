@@ -1,0 +1,21 @@
+{
+    "name": "heggi/yii2-esia",
+    "description": "ESIA Authclient for gosuslugi.ru",
+    "type": "library",
+    "keywords": ["yii2","extension","esia"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Heggi",
+            "email": "heggi@fhead.org"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "heggi\\yii2esia\\": ""
+        }
+    }
+}
