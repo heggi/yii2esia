@@ -22,10 +22,10 @@ class Esia extends OAuth2 {
     public $privateKeyPath;
     public $privateKeyPassword;
 
-    public function __construct($param1, $param2, $config = []) {
+    public function __construct($config = []) {
         parent::__construct($config);
 
-        if($production === false) {
+        if($this->production === false) {
             $this->authUrl = $this->baseUrlTest . $this->authUrl;
             $this->tokenUrl = $this->baseUrlTest . $this->tokenUrl;
             $this->apiBaseUrl = $this->baseUrlTest . $this->apiBaseUrl;
