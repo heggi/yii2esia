@@ -10,13 +10,31 @@ class Esia extends OAuth2 {
     public $id = 'esia';
     public $name = 'ESIA Auth';
     public $title = 'ESIA Gosuslugi.ru';
-    public $authUrl = 'https://esia-portal1.test.gosuslugi.ru/aas/oauth2/ac';
-    public $tokenUrl = 'https://esia-portal1.test.gosuslugi.ru/aas/oauth2/te';
-    public $apiBaseUrl = 'https://esia-portal1.test.gosuslugi.ru/rs/prns';
+    public $authUrl = '/aas/oauth2/ac';
+    public $tokenUrl = '/aas/oauth2/te';
+    public $apiBaseUrl = '/rs/prns';
+    public $production = true;
+
+    private $baseUrlProd = 'https://esia.gosuslugi.ru';
+    private $baseUrlTest = 'https://esia-portal1.test.gosuslugi.ru';
 
     public $certPath;
     public $privateKeyPath;
     public $privateKeyPassword;
+
+    public function __construct($param1, $param2, $config = []) {
+        parent::__construct($config);
+
+        if($production === false) {
+            $this->authUrl = $this->baseUrlTest . $this->authUrl;
+            $this->tokenUrl = $this->baseUrlTest . $this->tokenUrl;
+            $this->apiBaseUrl = $this->baseUrlTest . $this->apiBaseUrl;
+        } else {
+            $this->authUrl = $this->baseUrlProd . $this->authUrl;
+            $this->tokenUrl = $this->baseUrlProd . $this->tokenUrl;
+            $this->apiBaseUrl = $this->baseUrlProd . $this->apiBaseUrl;
+        }
+    }
 
     public function initUserAttributes() {
         $token = $this->getAccessToken();
