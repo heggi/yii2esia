@@ -166,6 +166,39 @@ class Esia extends OAuth2 {
     public function getPersonInfo($oid) {
         return $this->api($oid, 'GET');
     }
+    
+     /**
+	 * Users contact data 
+	 *
+	 * @return array
+	 */
+	public function getContactInfo($oid): array
+	{
+		$payload = $this->api($oid . '/ctts','GET');
+		if ($payload && $payload['size'] > 0) {
+			return $this->collectArrayElements($payload['elements']);
+		}
+		return $payload;
+	}
+
+	/**
+	 * This method can iterate on each element
+	 * and fetch entities from esia by url
+	 *
+	 * @param $elements array of urls
+	 * @return array
+	 */
+	private function collectArrayElements($elements): array
+	{
+		$result = [];
+		foreach ($elements as $elementUrl) {
+			$elementPayload = $this->api($elementUrl);
+			if ($elementPayload) {
+				$result[] = $elementPayload;
+			}
+		}
+		return $result;
+	}
 
     public function applyAccessTokenToRequest($request, $accessToken) {
         return $request->addHeaders([
